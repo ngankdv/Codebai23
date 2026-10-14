@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hệ Thống Xác Thực Người Dùng Chuyên Nghiệp</title>
+  <!-- Liên kết file CSS ngoài -->
+  <link rel="stylesheet" href="testlog.css" />
+</head>
+<body>
+  <!-- Nền hiệu ứng chuyển động -->
+  <div class="bg-shapes" aria-hidden="true">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+
+  <!-- Khu vực hiển thị thông báo Toast -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Nút chuyển đổi giao diện Sáng / Tối -->
+  <button id="theme-toggle" class="theme-toggle" type="button" title="Đổi giao diện Sáng/Tối">
+    <span id="theme-icon">☀️</span>
+    <span id="theme-text">Chế độ Sáng</span>
+  </button>
+
+  <!-- Khung chính -->
+  <main class="auth-wrapper">
+    <section class="auth-card">
+      <!-- Cột giới thiệu bên trái -->
+      <aside class="auth-banner">
+        <div class="brand-logo">
+          <div class="logo-circle">N</div>
+          <span class="brand-name">NovaWorkspace</span>
+        </div>
+
+        <div class="banner-content">
+          <h1>Quản lý công việc thông minh & bảo mật.</h1>
+          <p>
+            Trải nghiệm nền tảng làm việc đám mây thế hệ mới với tốc độ xử lý vượt trội,
+            bảo mật đa lớp và giao diện trực quan.
+          </p>
+
+          <ul class="feature-list">
+            <li>
+              <span class="feature-check">✓</span>
+              <span>Bảo mật xác thực 2 lớp (2FA) tiêu chuẩn quốc tế</span>
+            </li>
+            <li>
+              <span class="feature-check">✓</span>
+              <span>Đồng bộ hóa dữ liệu tức thời trên mọi thiết bị</span>
+            </li>
+            <li>
+              <span class="feature-check">✓</span>
+              <span>Báo cáo phân tích trực quan theo thời gian thực</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="banner-footer">
+          <p>© 2026 NovaWorkspace Inc. Bảo lưu mọi quyền.</p>
+        </div>
+      </aside>
+
+      <!-- Cột biểu mẫu bên phải -->
+      <div class="auth-MainContent">
+        <!-- Thanh điều hướng Tab -->
+        <div class="auth-tabs" role="tablist">
+          <button
+            type="button"
+            class="tab-btn active"
+            data-target="login-panel"
+            role="tab"
+            aria-selected="true"
+          >
+            Đăng nhập
+          </button>
+          <button
+            type="button"
+            class="tab-btn"
+            data-target="register-panel"
+            role="tab"
+            aria-selected="false"
+          >
+            Đăng ký
+          </button>
+          <div class="tab-indicator" id="tab-indicator"></div>
+        </div>
+
+        <!-- ==================== FORM ĐĂNG NHẬP ==================== -->
+        <form id="login-panel" class="auth-form active" novalidate>
+          <div class="form-header">
+            <h2>Chào mừng trở lại!</h2>
+            <p>Vui lòng nhập thông tin tài khoản của bạn để tiếp tục.</p>
+          </div>
+
+          <!-- Email / Tên đăng nhập -->
+          <div class="form-group">
+            <label for="login-email">Địa chỉ Email</label>
+            <div class="input-wrapper">
+              <span class="input-icon">📧</span>
+              <input
+                type="email"
+                id="login-email"
+                name="email"
+                placeholder="nhapemail@domain.com"
+                autocomplete="email"
+                required
+              />
+            </div>
+            <small class="error-message" id="login-email-error"></small>
+          </div>
+
+          <!-- Mật khẩu -->
+          <div class="form-group">
+            <div class="label-row">
+              <label for="login-password">Mật khẩu</label>
+              <button type="button" class="link-btn" id="goto-forgot-btn">
+                Quên mật khẩu?
+              </button>
+            </div>
+            <div class="input-wrapper">
+              <span class="input-icon">🔒</span>
+              <input
+                type="password"
+                id="login-password"
+                name="password"
+                placeholder="Nhập mật khẩu của bạn"
+                autocomplete="current-password"
+                required
+              />
+              <button
+                type="button"
+                class="toggle-password"
+                data-target="login-password"
+                aria-label="Hiện hoặc ẩn mật khẩu"
+              >
+                👁️
+              </button>
+            </div>
+            <small class="caps-warning" id="login-caps-warning">
+              ⚠️ Phím Caps Lock đang được bật!
+            </small>
+            <small class="error-message" id="login-password-error"></small>
+          </div>
+
+          <!-- Ghi nhớ đăng nhập -->
+          <div class="form-options">
+            <label class="custom-checkbox">
+              <input type="checkbox" id="remember-me" />
+              <span class="checkmark"></span>
+              <span class="checkbox-label">Ghi nhớ đăng nhập trong 30 ngày</span>
+            </label>
+          </div>
+
+          <!-- Nút Submit -->
+          <button type="submit" class="btn-primary" id="login-submit-btn">
+            <span class="btn-text">Đăng nhập vào hệ thống</span>
+            <span class="btn-loader"></span>
+          </button>
+
+          <!-- Đăng nhập mạng xã hội -->
+          <div class="divider">
+            <span>Hoặc tiếp tục với</span>
+          </div>
+
+          <div class="social-buttons">
+            <button type="button" class="btn-social" data-provider="Google">
+              <span class="social-icon">G</span>
+              <span>Google</span>
+            </button>
+            <button type="button" class="btn-social" data-provider="GitHub">
+              <span class="social-icon">⌘</span>
+              <span>GitHub</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- ==================== FORM ĐĂNG KÝ ==================== -->
+        <form id="register-panel" class="auth-form" novalidate>
+          <div class="form-header">
+            <h2>Tạo tài khoản mới</h2>
+            <p>Chỉ mất 1 phút để bắt đầu hành trình của bạn.</p>
+          </div>
+
+          <!-- Họ và tên -->
+          <div class="form-group">
+            <label for="reg-fullname">Họ và tên</label>
+            <div class="input-wrapper">
+              <span class="input-icon">👤</span>
+              <input
+                type="text"
+                id="reg-fullname"
+                placeholder="Nguyễn Văn A"
+                autocomplete="name"
+                required
+              />
+            </div>
+            <small class="error-message" id="reg-fullname-error"></small>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="reg-email">Địa chỉ Email công việc</label>
+            <div class="input-wrapper">
+              <span class="input-icon">📧</span>
+              <input
+                type="email"
+                id="reg-email"
+                placeholder="tenban@congty.com"
+                autocomplete="email"
+                required
+              />
+            </div>
+            <small class="error-message" id="reg-email-error"></small>
+          </div>
+
+          <!-- Mật khẩu đăng ký -->
+          <div class="form-group">
+            <label for="reg-password">Mật khẩu</label>
+            <div class="input-wrapper">
+              <span class="input-icon">🔑</span>
+              <input
+                type="password"
+                id="reg-password"
+                placeholder="Tối thiểu 8 ký tự"
+                autocomplete="new-password"
+                required
+              />
+              <button
+                type="button"
+                class="toggle-password"
+                data-target="reg-password"
+                aria-label="Hiện hoặc ẩn mật khẩu"
+              >
+                👁️
+              </button>
+            </div>
+            <small class="caps-warning" id="reg-caps-warning">
+              ⚠️ Phím Caps Lock đang được bật!
+            </small>
+            <small class="error-message" id="reg-password-error"></small>
+
+            <!-- Thanh đo độ mạnh mật khẩu -->
+            <div class="password-strength">
+              <div class="strength-bars">
+                <span class="bar" id="bar-1"></span>
+                <span class="bar" id="bar-2"></span>
+                <span class="bar" id="bar-3"></span>
+                <span class="bar" id="bar-4"></span>
+              </div>
+              <span class="strength-label" id="strength-label">Độ mạnh: Chưa nhập</span>
+            </div>
+
+            <ul class="password-criteria" id="password-criteria">
+              <li data-rule="length">Ít nhất 8 ký tự</li>
+              <li data-rule="uppercase">Có chữ cái in hoa (A-Z)</li>
+              <li data-rule="number">Có chữ số (0-9)</li>
+              <li data-rule="special">Có ký tự đặc biệt (!@#$...)</li>
+            </ul>
+          </div>
+
+          <!-- Nhập lại mật khẩu -->
+          <div class="form-group">
+            <label for="reg-confirm">Xác nhận mật khẩu</label>
+            <div class="input-wrapper">
+              <span class="input-icon">🛡️</span>
+              <input
+                type="password"
+                id="reg-confirm"
+                placeholder="Nhập lại mật khẩu ở trên"
+                autocomplete="new-password"
+                required
+              />
+            </div>
+            <small class="error-message" id="reg-confirm-error"></small>
+          </div>
+
+          <!-- Điều khoản -->
+          <div class="form-options">
+            <label class="custom-checkbox">
+              <input type="checkbox" id="reg-terms" />
+              <span class="checkmark"></span>
+              <span class="checkbox-label">
+                Tôi đồng ý với <a href="#terms" class="inline-link">Điều khoản dịch vụ</a> &
+                <a href="#privacy" class="inline-link">Chính sách bảo mật</a>
+              </span>
+            </label>
+          </div>
+          <small class="error-message" id="reg-terms-error"></small>
+
+          <button type="submit" class="btn-primary" id="register-submit-btn">
+            <span class="btn-text">Hoàn tất đăng ký</span>
+            <span class="btn-loader"></span>
+          </button>
+        </form>
+
+        <!-- ==================== FORM QUÊN MẬT KHẨU ==================== -->
+        <form id="forgot-panel" class="auth-form" novalidate>
+          <div class="form-header">
+            <h2>Khôi phục mật khẩu</h2>
+            <p>
+              Nhập địa chỉ email liên kết với tài khoản của bạn. Chúng tôi sẽ gửi mã xác nhận
+              để đặt lại mật khẩu.
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label for="forgot-email">Địa chỉ Email đã đăng ký</label>
+            <div class="input-wrapper">
+              <span class="input-icon">📨</span>
+              <input
+                type="email"
+                id="forgot-email"
+                placeholder="nhapemail@domain.com"
+                required
+              />
+            </div>
+            <small class="error-message" id="forgot-email-error"></small>
+          </div>
+
+          <button type="submit" class="btn-primary" id="forgot-submit-btn">
+            <span class="btn-text">Gửi yêu cầu khôi phục</span>
+            <span class="btn-loader"></span>
+          </button>
+
+          <button type="button" class="btn-secondary" id="back-to-login-btn">
+            ← Quay lại trang Đăng nhập
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Liên kết file JavaScript ngoài -->
+  <script src="testlog.js"></script>
+</body>
+</html>
